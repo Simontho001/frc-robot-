@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    limelightON();
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
@@ -135,6 +136,10 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically during operator control.
    */
+  @Override
+  public void teleopInit() {
+    limelightON();
+  }
   @Override
   public void teleopPeriodic() {
 
@@ -208,7 +213,17 @@ public class Robot extends TimedRobot {
    * This function is called periodically during test mode.
    */
   @Override
+  public void disabledInit() {
+    limelightOfF();
+  }
+  @Override
   public void testPeriodic() {
     
+  }
+  public void limelightON(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+  }
+  public void limelightOfF(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 }
